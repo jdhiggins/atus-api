@@ -1,0 +1,26 @@
+Models
+
+respondent
+
+
+
+household_members
+	respondent - ForeignKeyRelationship(Respondent)
+	age - IntegerField  TEAGE
+	sex -  CharField   TESEX
+	relationship_to_respondent - IntegerField TERRP (Relationship to survey respondent
+								might want to convert this
+	line_number - IntegerField 		TULINENO - number in household
+	case_id							TUCASEID
+
+activity_codes
+	pk
+	code - IntegerField
+	title - CharField
+
+
+activity_instances
+	respondent - ForeignKeyRelationship(Respondent)(via TUCASEID?)
+	activity - ForeignKeyRelationship(Activity_Code)
+	minutes - IntegerField
+
