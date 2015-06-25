@@ -21,7 +21,7 @@ class HouseholdMemberListCreateView(generics.ListCreateAPIView):
     serializer_class = HouseholdMemberSerializer
 
     def initial(self, request, *args, **kwargs):
-        self.respondent = Respondent.objects.get(pk=kwargs['respondent_pk'])
+        self.respondent = Respondent.objects.get(pk=kwargs['pk'])
         super().initial(request,*args,**kwargs)
 
     def get_queryset(self):

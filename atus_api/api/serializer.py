@@ -3,6 +3,8 @@ from rest_framework import serializers
 from .models import Respondent, HouseholdMember, ActivityCodes, ActivityInstances
 
 class RespondentSerializer(serializers.HyperlinkedModelSerializer):
+
+
     class Meta:
         model = Respondent
 
