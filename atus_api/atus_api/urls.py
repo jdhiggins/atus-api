@@ -24,8 +24,11 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'respondents', views.RespondentViewSet, base_name='respondent')
 
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^', include(router.urls)),
+    url(r'^household-members/(?P<pk>\d+)/$', views.HouseholdMemberListCreateView.as_view(),
+        name="household-member-list"),
 ]

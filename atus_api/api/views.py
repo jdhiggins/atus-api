@@ -16,3 +16,22 @@ class RespondentViewSet(viewsets.ModelViewSet):
 #    filter_class = RespondentFilter
 
 
+class HouseholdMemberListCreateView(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = HouseholdMemberSerializer
+
+    def initial(self, request, *args, **kwargs):
+        self.respondent = Respondent.objects.get(pk=kwargs['respondent_pk'])
+        super().initial(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return self.respondent.household_members.all()
+
+    def perform_create(self, serializer):
+        serializer.save(respondent=self.respondent)
+    # def get_queryset(self):
+    #     respondentpk = self.kwargs['pk']
+    #     return HouseholdMember.objects.filter(respondent__pk=respondentpk)
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(respondent=self.respondent)
