@@ -2,7 +2,7 @@ Models
 
 respondent
 
-
+	text
 
 household_members
 	respondent - ForeignKeyRelationship(Respondent)
