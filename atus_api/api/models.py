@@ -54,7 +54,7 @@ class Respondent(models.Model):
 
 
 class HouseholdMember(models.Model):
-    respondent = models.ForeignKey(Respondent)
+    respondent = models.ForeignKey(Respondent, related_name="household_members")
     age = models.IntegerField()
     #TEAGE
     sex = models.CharField(max_length=1)
@@ -72,7 +72,7 @@ class ActivityCodes(models.Model):
     
 
 class ActivityInstances(models.Model):
-    respondent = models.ForeignKey(Respondent)
-    activity = models.ForeignKey(ActivityCodes)
+    respondent = models.ForeignKey(Respondent, related_name="activity_instances")
+    activity = models.ForeignKey(ActivityCodes, related_name="activity_instances")
     minutes = models.IntegerField()
 
