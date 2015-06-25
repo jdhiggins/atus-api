@@ -5,14 +5,13 @@ from .serializer import RespondentSerializer, HouseholdMemberSerializer, Activit
     ActivityInstancesSerializer
 from rest_framework import viewsets, permissions, generics, filters
 from rest_framework.exceptions import PermissionDenied
-import django_filters
 
 # Create your views here.
 class RespondentViewSet(viewsets.ModelViewSet):
     """Search title, description or long in the style http://localhost:8000/api/bookmarks/?title=mortar"""
     queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
-    permission_classes = (permissions.IsAuthenticated)
+    permission_classes = (permissions.IsAuthenticated,)
 #    filter_backends = (filters.DjangoFilterBackend,)
 #    filter_class = RespondentFilter
 
