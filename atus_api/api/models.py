@@ -51,8 +51,9 @@ class Respondent(models.Model):
     #TRTEC
     time_spent_on_secondary_childcare = models.IntegerField()
     #TRTHH
-
-
+    #
+    # def __str__(self):
+    #     return self.id
 
 class HouseholdMember(models.Model):
     respondent = models.ForeignKey(Respondent, related_name="household_members")
