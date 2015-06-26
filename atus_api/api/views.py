@@ -66,3 +66,10 @@ class ActivityInstanceDetailView(generics.RetrieveAPIView):
     serializer_class = ActivityInstancesSerializer
     queryset = ActivityInstances.objects.all()
 
+
+class ActivitiesViewSet(viewsets.ModelViewSet):
+    """Search title, description or long in the style http://localhost:8000/api/bookmarks/?title=mortar"""
+    queryset = ActivityCodes.objects.all()
+    serializer_class = ActivityCodesSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+

@@ -23,6 +23,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'respondents', views.RespondentViewSet, base_name='respondent')
+router.register(r'activity-codes', views.ActivitiesViewSet)
 
 
 urlpatterns = [
@@ -36,5 +37,5 @@ urlpatterns = [
     url(r'^respondents/activity-codes/(?P<pk>\d+)/$', views.RespondentActivitiesListCreateView.as_view(),
         name='member-activities-list'),
     url(r'^activity-instance/(?P<pk>\d+)/$', views.ActivityInstanceDetailView.as_view(),
-        name="activityinstance-detail"),
+        name="activityinstances-detail"),
 ]
