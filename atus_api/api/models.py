@@ -69,7 +69,6 @@ class HouseholdMember(models.Model):
 
 
 class ActivityCodes(models.Model):
-    code = models.CharField(max_length=7)
     title = models.CharField(max_length=255)
     
 
