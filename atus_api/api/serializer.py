@@ -5,6 +5,7 @@ from .models import Respondent, HouseholdMember, ActivityCodes, ActivityInstance
 class RespondentSerializer(serializers.HyperlinkedModelSerializer):
 
     household_members = serializers.HyperlinkedIdentityField(view_name='householdmember-list')
+    activities = serializers.HyperlinkedIdentityField(view_name='member-activities-list')
     class Meta:
         model = Respondent
         #add fields
