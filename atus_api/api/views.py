@@ -59,3 +59,10 @@ class HouseholdMemberDetailView(generics.RetrieveAPIView):
     queryset = HouseholdMember.objects.all()
     # def get_queryset(self):
     #     return HouseholdMember.objects.get(pk=self.kwargs['pk'])
+
+
+class ActivityInstanceDetailView(generics.RetrieveAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ActivityInstancesSerializer
+    queryset = ActivityInstances.objects.all()
+

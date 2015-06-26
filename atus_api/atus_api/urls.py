@@ -35,4 +35,6 @@ urlpatterns = [
         name="householdmember-detail"),
     url(r'^respondents/activity-codes/(?P<pk>\d+)/$', views.RespondentActivitiesListCreateView.as_view(),
         name='member-activities-list'),
+    url(r'^activity-instance/(?P<pk>\d+)/$', views.ActivityInstanceDetailView.as_view(),
+        name="activityinstance-detail"),
 ]
