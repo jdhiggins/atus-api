@@ -37,9 +37,25 @@ class HouseholdMemberListCreateView(generics.ListCreateAPIView):
     #     serializer.save(respondent=self.respondent)
 
 
+class RespondentActivitiesListCreateView(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ActivityInstancesSerializer
+
+    def initial(self, request, *args, **kwargs):
+        self.respondent = Respondent.objects.get(pk=kwargs['pk'])
+        super().initial(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return self.respondent.activity_instances.all()
+
+    def perform_create(self, serializer):
+        serializer.save(respondent=self.respondent)
+
+
+
 class HouseholdMemberDetailView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = HouseholdMemberSerializer
-
-    def get_queryset(self):
-        return HouseholdMember.objects.get(pk=self.kwargs['pk'])
+    queryset = HouseholdMember.objects.all()
+    # def get_queryset(self):
+    #     return HouseholdMember.objects.get(pk=self.kwargs['pk'])
