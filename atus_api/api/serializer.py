@@ -26,4 +26,8 @@ class ActivityInstancesSerializer(serializers.HyperlinkedModelSerializer):
         model = ActivityInstances
 
 
+# class ActivityDataSerializer(serializers.HyperlinkedModelSerializer):
+
+
+
 

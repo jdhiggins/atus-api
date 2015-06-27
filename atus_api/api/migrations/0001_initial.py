@@ -13,23 +13,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ActivityCodes',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('code', models.IntegerField()),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('title', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
             name='ActivityInstances',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('minutes', models.IntegerField()),
-                ('activity', models.ForeignKey(to='api.ActivityCodes')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('minutes', models.CharField(max_length=255)),
+                ('activity', models.ForeignKey(related_name='activity_by_respondent', to='api.ActivityCodes')),
             ],
         ),
         migrations.CreateModel(
             name='HouseholdMember',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('age', models.IntegerField()),
                 ('sex', models.CharField(max_length=1)),
                 ('relationship_to_respondent', models.IntegerField()),
@@ -39,8 +38,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Respondent',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('final_weight', models.DecimalField(max_digits=20, decimal_places=6)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('final_weight', models.CharField(max_length=255)),
                 ('age_of_youngest_child', models.IntegerField()),
                 ('age_of_respondent', models.IntegerField()),
                 ('sex_of_respondent', models.CharField(max_length=1)),
@@ -68,11 +67,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='householdmember',
             name='respondent',
-            field=models.ForeignKey(to='api.Respondent'),
+            field=models.ForeignKey(related_name='household_members', to='api.Respondent'),
         ),
         migrations.AddField(
             model_name='activityinstances',
             name='respondent',
-            field=models.ForeignKey(to='api.Respondent'),
+            field=models.ForeignKey(related_name='activity_instances', to='api.Respondent'),
         ),
     ]

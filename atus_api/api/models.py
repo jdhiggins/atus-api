@@ -4,7 +4,7 @@ from django.db import models
 
 class Respondent(models.Model):
     #create primary key as well
-    final_weight = models.DecimalField(max_digits=20, decimal_places=6)
+    final_weight = models.CharField(max_length=255)
     #TUFINLWGT
     age_of_youngest_child = models.IntegerField()
     #TRYHHCHILD
@@ -75,5 +75,5 @@ class ActivityCodes(models.Model):
 class ActivityInstances(models.Model):
     respondent = models.ForeignKey(Respondent, related_name="activity_instances")
     activity = models.ForeignKey(ActivityCodes, related_name="activity_by_respondent")
-    minutes = models.IntegerField()
+    minutes = models.CharField(max_length=255)
 
