@@ -11,13 +11,13 @@ def convert_gender(my_str):
 
 print("Converting summary activity for respondent db...")
 respondent = []
-with open("atussum_2014/atussum_2014.dat") as infile:
+with open("atussum_2014/atussum_2014small.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
-        respondent.append({"model": "atus_api.Respondent",
-                           "pk": int(row[0]),
+        respondent.append({"model": "api.Respondent",
+                           "pk": row[0],
                            "fields": {
-                               "final_weight": float(row[1]),
+                               "final_weight": row[1],
                                "age_of_youngest_child": int(row[2]),
                                "age_of_respondent": int(row[3]),
                                "sex_of_respondent": convert_gender(row[4]),
@@ -47,17 +47,20 @@ with open("fixtures/activity_summary.json", "w") as outfile:
 
 print("Converting household members...")
 household_members = []
-with open("atusrost_2014/atusrost_2014.dat") as infile:
+with open("atusrost_2014/atusrost_2014small.dat") as infile:
     reader = csv.reader(infile)
+    pk = 1
     for row in reader:
-        household_members.append({"model": "atus_api.HouseholdMember",
-                                  "pk": int(row[0]),
+        household_members.append({"model": "api.HouseholdMember",
+                                  "pk": pk,
                                   "fields": {
+                                      "respondent": row[0],
                                       "line_number": int(row[1]),
                                       "age": int(row[2]),
                                       "relationship_to_respondent": int(row[3]),
                                       "sex": convert_gender(row[4])
                                   }})
+        pk = pk + 1
 
 with open("fixtures/household_members.json", "w") as outfile:
     outfile.write(json.dumps(household_members))
@@ -659,7 +662,7 @@ code_list = [('01', 'Personal Care'),
 
 activity_codes = []
 for key, value in code_list:
-    activity_codes.append({"model": "atus_api.ActivityCodes",
+    activity_codes.append({"model": "api.ActivityCodes",
                            "pk": key,
                            "fields": {
                                "title": value
@@ -710,18 +713,21 @@ codes = ["010101", "010102", "010201", "010299", "010301", "010399", "010401", "
 
 print("Converting summary activity for activity instances db...")
 activity_instances = []
-with open("atussum_2014/atussum_2014.dat") as infile:
+with open("atussum_2014/atussum_2014small.dat") as infile:
     reader = csv.reader(infile)
+    pk = 1
     for row in reader:
         i = 24
         for code in codes:
-            activity_instances.append({"model": "atus_api.ActivityInstances",
-                                       "respondent": int(row[0]),
+            activity_instances.append({"model": "api.ActivityInstances",
+                                       "pk" : str(pk),
                                        "fields": {
+                                            "respondent": row[0],
                                            "activity": code,
-                                           "minutes": int(row[i]),
+                                           "minutes": row[i],
                                        }})
             i += 1
+            pk += 1
 
 with open("fixtures/activity_instances.json", "w") as outfile:
     outfile.write(json.dumps(activity_instances))
