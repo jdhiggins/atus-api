@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Respondent, HouseholdMember, ActivityCodes, ActivityInstances
 from .serializer import RespondentSerializer, HouseholdMemberSerializer, ActivityCodesSerializer, \
-    ActivityInstancesSerializer
+    ActivityInstancesSerializer, ActivityDataSerializer
 from rest_framework import viewsets, permissions, generics, filters
 from rest_framework.exceptions import PermissionDenied
+from django.db.models import Count
 
 # Create your views here.
 class RespondentViewSet(viewsets.ModelViewSet):
@@ -72,10 +73,21 @@ class ActivitiesViewSet(viewsets.ModelViewSet):
     queryset = ActivityCodes.objects.all()
     serializer_class = ActivityCodesSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    
 
+class ActivitiesDataView(generics.RetrieveAPIView):
+    serializer_class = ActivityDataSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    # filter_backends = (filters.DjangoFilterBackend,)
+    # filter_class = ContactFilter
 
-
-
+    def get_queryset(self):
+        # print((ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1000).annotate(respondent_count=Count('activity')))[0].respondent_count)
+        # print(ActivityCodes.objects.filter(id=self.kwargs['pk']).annotate(respondent_count=Count('respondent'))
+        # return ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1).annotate(respondent_count=Count('activity'))
+        #
+        print(Respondent.objects.filter(respondents__minutes__gte=1))
+        return Respondent.objects.filter(respondents__minutes__gte=1).annotate(respondent_count=Count('respondents'))
 
 # class ActivitiesDataViewSet(viewsets.ModelViewSet):
 #     """Use name and notes GET parameters to filter."""

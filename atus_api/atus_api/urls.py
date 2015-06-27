@@ -38,4 +38,6 @@ urlpatterns = [
         name='member-activities-list'),
     url(r'^activity-instance/(?P<pk>\d+)/$', views.ActivityInstanceDetailView.as_view(),
         name="activityinstances-detail"),
+    url(r'^activity-instance-data/(?P<pk>\d+)/$', views.ActivitiesDataView.as_view(),
+        name="activity-data-detail"),
 ]
