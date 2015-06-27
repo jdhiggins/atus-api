@@ -25,12 +25,13 @@ class ActivityInstancesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ActivityInstances
 
-# class ActivityDataSerializer(serializers.HyperlinkedModelSerializer):
-#     respondent_count = serializers.IntegerField(read_only=True)
-#
-#     class Meta:
-#         model = ActivityCodes
-#         fields =('respondent_count')
+
+class ActivityDataSerializer(serializers.HyperlinkedModelSerializer):
+    respondent_count = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ActivityCodes
+        fields =('respondent_count')
 
 
 

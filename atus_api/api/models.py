@@ -75,6 +75,6 @@ class ActivityCodes(models.Model):
 
 
 class ActivityInstances(models.Model):
-    respondent = models.ForeignKey(Respondent, related_name="activity_instances")
-    activity = models.ForeignKey(ActivityCodes, related_name="activity_by_respondent")
+    respondent = models.ForeignKey(Respondent, related_name="respondents")
+    activity = models.ForeignKey(ActivityCodes)
     minutes = models.IntegerField()
