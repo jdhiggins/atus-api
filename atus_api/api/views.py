@@ -72,8 +72,17 @@ class ActivitiesViewSet(viewsets.ModelViewSet):
     queryset = ActivityCodes.objects.all()
     serializer_class = ActivityCodesSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    
 
-
+# class ActivitiesDataView(generics.RetrieveAPIView):
+#     serializer_class = ActivityDataSerializer
+#     permission_classes = (permissions.IsAuthenticated,)
+#     # filter_backends = (filters.DjangoFilterBackend,)
+#     # filter_class = ContactFilter
+#
+#     def get_queryset(self):
+#         return ActivityInstances.objects.filter(activity__startswith=self.kwargs['pk']).annotate(
+#             respondent_count=Count('respondent', distinct=True))
 
 
 
