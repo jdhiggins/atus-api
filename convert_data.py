@@ -11,7 +11,7 @@ def convert_gender(my_str):
 
 print("Converting summary activity for respondent db...")
 respondent = []
-with open("atussum_2014/atussum_2014.dat") as infile:
+with open("atussum_2014/atussum_2014small.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
         respondent.append({"model": "api.Respondent",
@@ -47,7 +47,7 @@ with open("fixtures/activity_summary.json", "w") as outfile:
 
 print("Converting household members...")
 household_members = []
-with open("atusrost_2014/atusrost_2014.dat") as infile:
+with open("atusrost_2014/atusrost_2014small.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
         household_members.append({"model": "api.HouseholdMember",
@@ -710,7 +710,7 @@ codes = ["010101", "010102", "010201", "010299", "010301", "010399", "010401", "
 
 print("Converting summary activity for activity instances db...")
 activity_instances = []
-with open("atussum_2014/atussum_2014.dat") as infile:
+with open("atussum_2014/atussum_2014small.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
         i = 24
