@@ -57,6 +57,7 @@ class Respondent(models.Model):
     #     return self.id
 
 
+
 class HouseholdMember(models.Model):
     respondent = models.ForeignKey(Respondent, related_name="household_members")
     age = models.IntegerField()
@@ -73,8 +74,24 @@ class HouseholdMember(models.Model):
 class ActivityCodes(models.Model):
     title = models.CharField(max_length=255)
 
+    # @property
+    # def activities_list(self):
+    #     return
+    #
+    @property
+    def number_respondents(self):
+        return self.activityinstances_set.filter(minutes__gte=1).count()
+
+    @property
+    def total_minutes(self):
+        return self.minutes_set.sum()
+
+    @property
+    def average_minutes(self):
+        return self.minutes_set.avg()
+
 
 class ActivityInstances(models.Model):
-    respondent = models.ForeignKey(Respondent, related_name="respondents")
+    respondent = models.ForeignKey(Respondent, related_name="Respondents")
     activity = models.ForeignKey(ActivityCodes)
     minutes = models.IntegerField()

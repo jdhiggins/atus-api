@@ -82,11 +82,12 @@ class ActivitiesDataView(generics.RetrieveAPIView):
     # filter_class = ContactFilter
 
     def get_queryset(self):
-        print((ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1000).annotate(respondent_count=Count('activity')))[0].respondent_count)
-        print(ActivityCodes.objects.filter(id=self.kwargs['pk']).annotate(respondent_count=Count('respondent'))
-        return ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1).annotate(respondent_count=Count('activity'))
-
-
+        # print((ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1000).annotate(respondent_count=Count('activity')))[0].respondent_count)
+        # print(ActivityCodes.objects.filter(id=self.kwargs['pk']).annotate(respondent_count=Count('respondent'))
+        # return ActivityInstances.objects.filter(activity=str(self.kwargs['pk'])).filter(minutes__gte=1).annotate(respondent_count=Count('activity'))
+        #
+        print(Respondent.objects.filter(respondents__minutes__gte=1))
+        return Respondent.objects.filter(respondents__minutes__gte=1).annotate(respondent_count=Count('respondents'))
 
 # class ActivitiesDataViewSet(viewsets.ModelViewSet):
 #     """Use name and notes GET parameters to filter."""

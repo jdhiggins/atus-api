@@ -19,6 +19,7 @@ class HouseholdMemberSerializer(serializers.HyperlinkedModelSerializer):
 class ActivityCodesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ActivityCodes
+        fields = ('title', 'url', 'number_respondents', 'total_minutes', 'average_minutes')
 
 
 class ActivityInstancesSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,7 +32,8 @@ class ActivityDataSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ActivityCodes
-        fields =('respondent_count')
+        fields = ('id', 'user', 'long', 'description', 'title', 'url', 'short', 'created', 'number_clicks', 'edited',
+                  'clicks')
 
 
 
