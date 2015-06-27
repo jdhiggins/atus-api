@@ -73,3 +73,25 @@ class ActivitiesViewSet(viewsets.ModelViewSet):
     serializer_class = ActivityCodesSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+
+
+
+
+# class ActivitiesDataViewSet(viewsets.ModelViewSet):
+#     """Use name and notes GET parameters to filter."""
+#     serializer_class = ActivityCodesDataSerializer
+#     permission_classes = (permissions.IsAuthenticated,)
+#     # filter_backends = (filters.DjangoFilterBackend,)
+#     # filter_class = ContactFilter
+#     def initial(self, request, *args, **kwargs):
+#         self.respondent = Respondent.objects.get(pk=kwargs['pk'])
+#         super().initial(request,*args,**kwargs)
+#
+#
+#     def get_queryset(self):
+#         return ActivityInstances.objects.filter(owner=self.request.user).annotate(
+#             email_count=Count('emails', distinct=True),
+#             phone_count=Count('phones', distinct=True))
+#
+#     def perform_create(self, serializer):
+#         serializer.save(owner=self.request.user)
