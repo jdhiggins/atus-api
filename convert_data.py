@@ -14,32 +14,32 @@ respondent = []
 with open("atussum_2014/atussum_2014.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
-        respondent.append({"model": "atus_api.Respondent",
-                           "pk": int(row[0]),
+        respondent.append({"model": "api.Respondent",
                            "fields": {
-                               "final_weight": float(row[1]),
-                               "age_of_youngest_child": int(row[2]),
-                               "age_of_respondent": int(row[3]),
+                               "id": int(row[0]),
+                               "final_weight": row[1],
+                               "age_of_youngest_child": row[2],
+                               "age_of_respondent": row[3],
                                "sex_of_respondent": convert_gender(row[4]),
-                               "highest_education_level": int(row[5]),
-                               "race": int(row[6]),
-                               "is_hispanic": int(row[7]),
-                               "metropolitan_status": int(row[8]),
-                               "labor_force_status": int(row[9]),
-                               "more_than_one_job_in_week": int(row[10]),
-                               "full_time_or_part_time": int(row[11]),
-                               "enrolled_in_school": int(row[12]),
-                               "high_school_or_college": int(row[13]),
-                               "spouse_or_partner_present": int(row[14]),
-                               "employment_status_of_spouse_or_partner": int(row[15]),
-                               "weekly_earning_at_main_job": int(row[16]),
-                               "number_of_children": int(row[17]),
-                               "full_time_or_part_time_spouse_partner": int(row[18]),
-                               "total_hours_worked_per_week": int(row[19]),
-                               "day_of_week": int(row[20]),
-                               "holiday": int(row[21]),
-                               "time_spent_on_elder_care": int(row[22]),
-                               "time_spent_on_secondary_childcare": int(row[23])
+                               "highest_education_level": row[5],
+                               "race": row[6],
+                               "is_hispanic": row[7],
+                               "metropolitan_status": row[8],
+                               "labor_force_status": row[9],
+                               "more_than_one_job_in_week": row[10],
+                               "full_time_or_part_time": row[11],
+                               "enrolled_in_school": row[12],
+                               "high_school_or_college": row[13],
+                               "spouse_or_partner_present": row[14],
+                               "employment_status_of_spouse_or_partner": row[15],
+                               "weekly_earning_at_main_job": row[16],
+                               "number_of_children": row[17],
+                               "full_time_or_part_time_spouse_partner": row[18],
+                               "total_hours_worked_per_week": row[19],
+                               "day_of_week": row[20],
+                               "holiday": row[21],
+                               "time_spent_on_elder_care": row[22],
+                               "time_spent_on_secondary_childcare": row[23]
                            }})
 
 with open("fixtures/activity_summary.json", "w") as outfile:
@@ -50,12 +50,12 @@ household_members = []
 with open("atusrost_2014/atusrost_2014.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
-        household_members.append({"model": "atus_api.HouseholdMember",
-                                  "pk": int(row[0]),
+        household_members.append({"model": "api.HouseholdMember",
                                   "fields": {
-                                      "line_number": int(row[1]),
-                                      "age": int(row[2]),
-                                      "relationship_to_respondent": int(row[3]),
+                                      "respondent": int(row[0]),
+                                      "line_number": row[1],
+                                      "age": row[2],
+                                      "relationship_to_respondent": row[3],
                                       "sex": convert_gender(row[4])
                                   }})
 
@@ -659,7 +659,7 @@ code_list = [('01', 'Personal Care'),
 
 activity_codes = []
 for key, value in code_list:
-    activity_codes.append({"model": "atus_api.ActivityCodes",
+    activity_codes.append({"model": "api.ActivityCodes",
                            "pk": key,
                            "fields": {
                                "title": value
@@ -714,14 +714,16 @@ with open("atussum_2014/atussum_2014.dat") as infile:
     reader = csv.reader(infile)
     for row in reader:
         i = 24
+        pk = 1
         for code in codes:
-            activity_instances.append({"model": "atus_api.ActivityInstances",
-                                       "respondent": int(row[0]),
+            activity_instances.append({"model": "api.ActivityInstances",
                                        "fields": {
+                                           "respondent": int(row[0]),
                                            "activity": code,
                                            "minutes": int(row[i]),
                                        }})
             i += 1
+            pk += 1
 
 with open("fixtures/activity_instances.json", "w") as outfile:
     outfile.write(json.dumps(activity_instances))
